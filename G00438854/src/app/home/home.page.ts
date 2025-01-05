@@ -1,4 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // For Angular directives
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // For Ionic components
 import { RestCountriesService } from '../services/rest-countries.service';
 import { NewsService } from '../services/news.service';
 import { WeatherService } from '../services/weather.service';
@@ -7,9 +9,14 @@ import { WeatherService } from '../services/weather.service';
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Allows Ionic custom elements
+  imports: [CommonModule], // Add CommonModule
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add schema for Ionic components
 })
 export class HomePage {
+  countries: any[] = [];
+  weather: any = null;
+  news: any[] = [];
+
   constructor(
     private restCountriesService: RestCountriesService,
     private newsService: NewsService,
@@ -17,36 +24,43 @@ export class HomePage {
   ) {}
 
   ngOnInit() {
-    // Test RestCountries API
+    // Fetch countries with "Ireland" for demonstration
     this.restCountriesService.getCountriesByName('Ireland').subscribe(
       (data: any) => {
-        console.log('RestCountries API Data:', data);
+        this.countries = data;
       },
       (error: any) => {
         console.error('RestCountries API Error:', error);
       }
     );
+  }
 
-    // Test News API
-    this.newsService.getNewsByCountry('IE').subscribe(
+  getWeather(country: any) {
+    const lat = country.latlng[0];
+    const lon = country.latlng[1];
+
+    this.weatherService.getWeatherByCoordinates(lat, lon).subscribe(
       (data: any) => {
-        console.log('News API Data:', data);
+        this.weather = data;
+        console.log('Weather Data:', this.weather);
+      },
+      (error: any) => {
+        console.error('Weather API Error:', error);
+      }
+    );
+  }
+
+  getNews(country: any) {
+    const countryCode = country.cca2;
+
+    this.newsService.getNewsByCountry(countryCode).subscribe(
+      (data: any) => {
+        this.news = data.results;
+        console.log('News Data:', this.news);
       },
       (error: any) => {
         console.error('News API Error:', error);
       }
     );
-
-    // Test Weather API
-    this.weatherService
-      .getWeatherByCoordinates('53.3498', '-6.2603')
-      .subscribe(
-        (data: any) => {
-          console.log('Weather API Data:', data);
-        },
-        (error: any) => {
-          console.error('Weather API Error:', error);
-        }
-      );
   }
 }
