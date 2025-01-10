@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule],
 })
 export class HomePage {
-  countryName: string = ''; // To bind with ngModel
+  countryName: string = '';
 
-  constructor(private router: Router) {}
+  constructor() {}
 
-  searchCountries() {
-    if (this.countryName.trim()) {
-      this.router.navigate(['/countries'], {
-        queryParams: { name: this.countryName },
-      });
+  searchCountry() {
+    if (this.countryName) {
+      alert(`Search initiated for: ${this.countryName}`);
+    } else {
+      alert('Please enter a country name!');
     }
   }
 }

@@ -1,19 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>G00438854</ion-title>
     <ion-buttons slot="end">
-      <ion-button [routerLink]="'/settings'">
+      <ion-button routerLink="/settings">
         <ion-icon name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h1>Student Number: G00438854</h1>
-  <ion-item>
-    <ion-label position="floating">Enter Country Name</ion-label>
-    <ion-input [(ngModel)]="countryName"></ion-input>
-  </ion-item>
-  <ion-button expand="full" (click)="searchCountries()">Search</ion-button>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Search for a Country</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Enter Country Name</ion-label>
+        <ion-input [(ngModel)]="countryName"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="searchCountry()">Search</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
