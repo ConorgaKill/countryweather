@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Countries</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="isLoading" color="primary" style="display: block; margin: auto;"></ion-spinner>
+
+  <ion-list *ngIf="!isLoading && countries.length > 0">
+    <ion-item *ngFor="let country of countries">
+      <ion-thumbnail slot="start">
+        <img [src]="country.flags?.png" alt="Flag">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ country.name?.official }}</h2>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary">News</ion-button>
+        <ion-button color="secondary">Weather</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="!isLoading && countries.length === 0" color="medium">
+    <p style="text-align: center; margin-top: 20px;">No countries found.</p>
+  </ion-text>
+</ion-content>
