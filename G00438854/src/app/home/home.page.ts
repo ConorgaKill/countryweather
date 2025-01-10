@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  constructor() {}
+  countryName: string = ''; // To bind with ngModel
+
+  constructor(private router: Router) {}
+
+  searchCountries() {
+    if (this.countryName.trim()) {
+      this.router.navigate(['/countries'], {
+        queryParams: { name: this.countryName },
+      });
+    }
+  }
 }
