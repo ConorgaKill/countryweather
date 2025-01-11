@@ -20,4 +20,9 @@ export class SettingsPage {
     this.selectedUnit = event.detail.value;
     alert(`Selected unit: ${this.selectedUnit}`);
   }
+
+  toggleDarkMode(event: any) {
+    const isDarkMode = event.detail.checked;
+    document.body.classList.toggle('dark', isDarkMode);
+  }
 }
