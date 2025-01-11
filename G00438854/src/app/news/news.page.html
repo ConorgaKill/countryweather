@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="isLoading" color="primary" style="display: block; margin: auto;"></ion-spinner>
+
+  <ion-list *ngIf="!isLoading && news.length > 0">
+    <ion-item *ngFor="let article of news">
+      <ion-thumbnail slot="start" *ngIf="article.image_url">
+        <img [src]="article.image_url" alt="News Image">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.description }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="!isLoading && news.length === 0" color="medium">
+    <p style="text-align: center; margin-top: 20px;">No news found for this country.</p>
+  </ion-text>
+</ion-content>
