@@ -18,10 +18,19 @@
         <h2>{{ country.name?.official }}</h2>
       </ion-label>
       <ion-buttons slot="end">
+        <!-- News Button -->
         <ion-button color="primary" [routerLink]="'/news'" [queryParams]="{ country: country.name?.official }">
           News
         </ion-button>
-        <ion-button color="secondary">Weather</ion-button>
+        
+        <!-- Weather Button -->
+        <ion-button
+          color="secondary"
+          [routerLink]="'/weather'"
+          [queryParams]="{ country: country.name?.official, capital: country.capital?.[0] }"
+        >
+          Weather
+        </ion-button>
       </ion-buttons>
     </ion-item>
   </ion-list>

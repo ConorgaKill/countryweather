@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Weather</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="isLoading" color="primary" style="display: block; margin: auto;"></ion-spinner>
+
+  <ion-card *ngIf="!isLoading && weather">
+    <ion-card-header>
+      <ion-card-title>Weather in {{ capital }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Temperature:</strong> {{ weather.main?.temp }}°C</p>
+      <p><strong>Condition:</strong> {{ weather.weather[0]?.description }}</p>
+      <img [src]="'https://openweathermap.org/img/wn/' + weather.weather[0]?.icon + '@2x.png'" alt="Weather Icon" />
+      <p><strong>Humidity:</strong> {{ weather.main?.humidity }}%</p>
+      <p><strong>Wind Speed:</strong> {{ weather.wind?.speed }} m/s</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text *ngIf="!isLoading && !weather" color="medium">
+    <p style="text-align: center; margin-top: 20px;">Weather data not available.</p>
+  </ion-text>
+</ion-content>
